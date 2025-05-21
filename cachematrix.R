@@ -20,8 +20,19 @@ cacheSolve <- function(x, ...) {
     message("getting cached data")
     return(inv)
   }
-  mat <- x$get()
-  inv <- solve(mat, ...)
+  data <- x$get()
+  inv <- solve(data, ...)
   x$setinv(inv)
   inv
 }
+# Create a special matrix object
+m <- matrix(c(2, 2, 3, 4), 2, 2)
+special_matrix <- makeCacheMatrix(m)
+
+# Compute and cache the inverse
+inv1 <- cacheSolve(special_matrix)
+print(inv1)
+
+# Retrieve the cached inverse
+inv2 <- cacheSolve(special_matrix)
+print(inv2)
